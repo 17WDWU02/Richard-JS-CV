@@ -20,5 +20,36 @@
 	padding: 10px;
 }
 
+#SkillContainer{
+	width: 800px;
+}
+
+.SkillBar{
+	width: 100%;
+	background-color: #ddd;
+	margin-bottom: 10px;
+}
+
+.progress{
+	width: 0;
+	height: 30px;
+	background-color: #4CAF50;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
