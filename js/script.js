@@ -22,8 +22,6 @@ var Employment = [
 	}
 ];
 
-
-
 var HeaderName = document.getElementById('Name');
 HeaderName.style.color = "red";
 HeaderName.style.fontSize = "50px";
@@ -75,11 +73,6 @@ function ClosePopUp(){
 	document.getElementById('popup').style.display = "none";
 }
 
-
-
-
-
-
 var Skills = [
 	{
 		SkillName : "HTML",
@@ -97,11 +90,6 @@ var Skills = [
 		Colour: "#00AD50"
 	}
 ]
-
-
-
-
-
 
 var SkillMoving = false;
 //Skills Bar
@@ -132,12 +120,6 @@ function progressSkills(){
 	}
 }
 
-
-
-
-
-
-
 function move(bar, StopPoint, Colour){
 	var width = 0;
 	bar.style.backgroundColor = Colour;
@@ -155,19 +137,15 @@ function move(bar, StopPoint, Colour){
 	}
 
 }
-
-
-
-
-
-
+var LightBoxOpen = false;
 function openLightbox(){
 	document.getElementById('Lightbox').style.display = "block";
+	LightBoxOpen = true;
 }
 
 function closeLightbox(){
 	document.getElementById('Lightbox').style.display = "none";
-
+	LightBoxOpen = false;
 }
 
 var Images = document.getElementsByClassName('single-image');
@@ -183,17 +161,53 @@ for (var i = 0; i < Images.length; i++) {
 		ImgContainer.innerHTML = "";
 		for (var j = 0; j < Images.length; j++) {
 			var jImage = Images[j].getElementsByTagName('img')[0];
-			ImgContainer.innerHTML += "<div class='LightboxThumb' style='width:"+ThumbWidth+"%'>"+
-										"<img src='"+jImage.src+"' alt='"+jImage.alt+"'>"+
+			ImgContainer.innerHTML += "<div class='LightboxThumb "+jImage.alt+"' style='width:"+ThumbWidth+"%' onclick='changeLightBox(this);'>"+
+										"<img src='"+jImage.src+"' alt='"+jImage.alt+"'>"+ 
 										"</div>"
+			if(jImage.src === image.src){
+				document.getElementsByClassName(jImage.alt)[0].classList.add("active");
+			}
 		};
-
-
-
-
 	}
 };
 
+function changeLightBox(Element){
+	var ClickedImage = Element.getElementsByTagName('img')[0];
+	document.getElementById('Lightbox-Image').src = ClickedImage.src;
+	document.getElementById('Lightbox-Image').alt = ClickedImage.alt;
+	document.getElementById('Lightbox-Image-Tag').innerText = ClickedImage.alt;
+	var Thumbnails = document.getElementsByClassName('LightboxThumb');
+	for (var i = 0; i < Thumbnails.length; i++) {
+		Thumbnails[i].classList.remove("active");
+	};
+	Element.classList.add("active");
+}
+
+//Keyboard Click Events
+window.onkeyup = function(event){
+	if(LightBoxOpen === true){
+		if(event.keyCode == 39){
+			var Thumbnails = document.getElementsByClassName('LightboxThumb');
+			var NextElement;
+			for (var i = 0; i < Thumbnails.length; i++) {
+				var ClassList = Thumbnails[i].classList;
+				for (var j = 0; j < ClassList.length; j++) {
+					if(ClassList[j] === 'active'){
+						var CurrentElement = i;
+						break;
+					}
+				};
+			};
+			console.log(CurrentElement);
+
+
+
+
+		} else if(event.keyCode == 37){
+			console.log("left");
+		}
+	}
+}
 
 
 
