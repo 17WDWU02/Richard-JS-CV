@@ -9,6 +9,29 @@
 
 	<div id="Employment"></div>
 
+	<h3>My Skills</h3>
+	<div id="SkillContainer"></div>
+	<button onclick="progressSkills()">Show Skills</button>
+
+	<h3>My Work</h3>
+	<div id="ImageContainer">
+		<div class="single-image">
+			<img src="images/Butterfly.jpg" alt="Butterfly" onclick="openLightbox()">
+		</div>
+		<div class="single-image">
+			<img src="images/Cat.jpg" alt="Cat" onclick="openLightbox()">
+		</div>
+		<div class="single-image">
+			<img src="images/Dori.jpg" alt="Dori" onclick="openLightbox()">
+		</div>
+		<div class="single-image">
+			<img src="images/Eagle.jpg" alt="Eagle" onclick="openLightbox()">
+		</div>
+	</div>
+
+
+
+
 	<div id="popup">
 		<h4 id="companyName"></h4>
 		<p class="companyRole"></p>
@@ -16,9 +39,15 @@
 		<div id="Close">X</div>
 	</div>
 
-	<h3>My Skills</h3>
-	<div id="SkillContainer"></div>
-	<button onclick="progressSkills()">Show Skills</button>
+	<div id="Lightbox">
+		<div id="Lightbox-Content">
+			<div onclick="closeLightbox()">X</div>
+			<img id="Lightbox-Image" src="http://placehold.it/350x150" alt="placeholderImage">
+			<p id="Lightbox-Image-Tag"></p>
+			<div id="thumbImage"></div>
+		</div>
+	</div>
+
 
 
 

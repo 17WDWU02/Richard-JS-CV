@@ -83,18 +83,27 @@ function ClosePopUp(){
 var Skills = [
 	{
 		SkillName : "HTML",
-		Percentage : "80"
+		Percentage : "80",
+		Colour : "#D22630"
 	},
 	{
 		SkillName : "CSS",
-		Percentage : "70"
+		Percentage : "70",
+		Colour : "#365ABD"
 	},
 	{
 		SkillName : "JS",
-		Percentage : "60"
+		Percentage : "60",
+		Colour: "#00AD50"
 	}
 ]
 
+
+
+
+
+
+var SkillMoving = false;
 //Skills Bar
 var SkillContainer = document.getElementById('SkillContainer');
 for (var i = 0; i < Skills.length; i++) {
@@ -107,29 +116,44 @@ for (var i = 0; i < Skills.length; i++) {
 var bars = document.getElementsByClassName('progress');
 
 function progressSkills(){
-	for (var i = 0; i < bars.length; i++) {
-		var StopPoint;
-		for(var j = 0; j < Skills.length; j++){
-			if(bars[i].id == Skills[j]['SkillName']){
-				StopPoint = Skills[j]['Percentage'];
-				break;
+	if(SkillMoving == false){
+
+		for (var i = 0; i < bars.length; i++) {
+			var StopPoint;
+			for(var j = 0; j < Skills.length; j++){
+				if(bars[i].id == Skills[j]['SkillName']){
+					StopPoint = Skills[j]['Percentage'];
+					var Colour = Skills[j]['Colour'];
+					break;
+				}
 			}
+		move(bars[i], StopPoint, Colour);
 		}
-	move(bars[i], StopPoint);
 	}
 }
 
-function move(bar, StopPoint){
+
+
+
+
+
+
+function move(bar, StopPoint, Colour){
 	var width = 0;
+	bar.style.backgroundColor = Colour;
 	var barMove = setInterval(barGrow, 10);
 	function barGrow(){
 		if(width >= StopPoint){
 			clearInterval(barMove);
+			SkillMoving = false;
 		} else {
+			SkillMoving = true;
 			width++;
 			bar.style.width = width + '%';
+			bar.innerHTML = width + '%';
 		}
 	}
+
 }
 
 
@@ -137,8 +161,38 @@ function move(bar, StopPoint){
 
 
 
+function openLightbox(){
+	document.getElementById('Lightbox').style.display = "block";
+}
+
+function closeLightbox(){
+	document.getElementById('Lightbox').style.display = "none";
+
+}
+
+var Images = document.getElementsByClassName('single-image');
+for (var i = 0; i < Images.length; i++) {
+	Images[i].onclick = function(){
+		var image = this.getElementsByTagName('img')[0];
+		document.getElementById('Lightbox-Image').src = image.src;
+		document.getElementById('Lightbox-Image').alt = image.alt;
+		document.getElementById('Lightbox-Image-Tag').innerText = image.alt;
+
+		var ThumbWidth = 100 / Images.length;
+		var ImgContainer = document.getElementById('thumbImage');
+		ImgContainer.innerHTML = "";
+		for (var j = 0; j < Images.length; j++) {
+			var jImage = Images[j].getElementsByTagName('img')[0];
+			ImgContainer.innerHTML += "<div class='LightboxThumb' style='width:"+ThumbWidth+"%'>"+
+										"<img src='"+jImage.src+"' alt='"+jImage.alt+"'>"+
+										"</div>"
+		};
 
 
+
+
+	}
+};
 
 
 
