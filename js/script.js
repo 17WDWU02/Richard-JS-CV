@@ -21,17 +21,19 @@ var Employment = [
 		Description : "Description for Little Yellow Bird"
 	}
 ];
-
+//Change the Header Styles
 var HeaderName = document.getElementById('Name');
 HeaderName.style.color = "red";
 HeaderName.style.fontSize = "50px";
 HeaderName.innerHTML += " - CV";
 
+//Add my Education List
 var EducationList = document.getElementById('Education');
 for (var i = 0; i < Education.length; i++) {
 	EducationList.innerHTML += "<li>"+Education[i]+"</li>";
 };
 
+//Add my Employment List
 var EmploymentContainer = document.getElementById('Employment');
 for (var i = 0; i < Employment.length; i++) {
 	EmploymentContainer.innerHTML += "<div class='EmploymentItem'>"+
@@ -40,6 +42,7 @@ for (var i = 0; i < Employment.length; i++) {
 									"</div>";
 };
 
+//Create a click function for my Employment List
 var EmploymentBlock = document.getElementsByClassName('EmploymentItem');
 for (var i = 0; i < EmploymentBlock.length; i++) {
 	EmploymentBlock[i].onclick = function(){
@@ -51,6 +54,7 @@ for (var i = 0; i < EmploymentBlock.length; i++) {
 	}
 };
 
+//Pop up to show my employment with more info
 function popup(CompanyName){
 	var CompanyDesc;
 	for (var i = 0; i < Employment.length; i++) {
@@ -65,14 +69,15 @@ function popup(CompanyName){
 	popupbox.style.display = 'block';
 }
 
+//Close the Pop Up
 document.getElementById('Close').addEventListener("click", ClosePopUp);
 
 function ClosePopUp(){
-	// popupbox.style.display = 'none';
 	overlay = false;
 	document.getElementById('popup').style.display = "none";
 }
 
+//Skills
 var Skills = [
 	{
 		SkillName : "HTML",
@@ -152,9 +157,7 @@ var Images = document.getElementsByClassName('single-image');
 for (var i = 0; i < Images.length; i++) {
 	Images[i].onclick = function(){
 		var image = this.getElementsByTagName('img')[0];
-		document.getElementById('Lightbox-Image').src = image.src;
-		document.getElementById('Lightbox-Image').alt = image.alt;
-		document.getElementById('Lightbox-Image-Tag').innerText = image.alt;
+		ChangeMainImage(image);
 
 		var ThumbWidth = 100 / Images.length;
 		var ImgContainer = document.getElementById('thumbImage');
@@ -173,9 +176,7 @@ for (var i = 0; i < Images.length; i++) {
 
 function changeLightBox(Element){
 	var ClickedImage = Element.getElementsByTagName('img')[0];
-	document.getElementById('Lightbox-Image').src = ClickedImage.src;
-	document.getElementById('Lightbox-Image').alt = ClickedImage.alt;
-	document.getElementById('Lightbox-Image-Tag').innerText = ClickedImage.alt;
+	ChangeMainImage(ClickedImage);
 	var Thumbnails = document.getElementsByClassName('LightboxThumb');
 	for (var i = 0; i < Thumbnails.length; i++) {
 		Thumbnails[i].classList.remove("active");
@@ -186,28 +187,50 @@ function changeLightBox(Element){
 //Keyboard Click Events
 window.onkeyup = function(event){
 	if(LightBoxOpen === true){
+		var Thumbnails = document.getElementsByClassName('LightboxThumb');
+		var NextElement;
+		var CurrentElement = keychangeLightBox();
+		Thumbnails[CurrentElement].classList.remove('active');
 		if(event.keyCode == 39){
-			var Thumbnails = document.getElementsByClassName('LightboxThumb');
-			var NextElement;
-			for (var i = 0; i < Thumbnails.length; i++) {
-				var ClassList = Thumbnails[i].classList;
-				for (var j = 0; j < ClassList.length; j++) {
-					if(ClassList[j] === 'active'){
-						var CurrentElement = i;
-						break;
-					}
-				};
-			};
-			console.log(CurrentElement);
-
-
-
-
+			NextElement = CurrentElement + 1;
+			if(NextElement == Thumbnails.length){
+				NextElement = 0;
+			}
 		} else if(event.keyCode == 37){
-			console.log("left");
+			NextElement = CurrentElement - 1;
+			if(NextElement == -1){
+				NextElement = Thumbnails.length - 1;
+			}
 		}
+		Thumbnails[NextElement].classList.add('active');
+		var NewLightBox = Thumbnails[NextElement].getElementsByTagName('img')[0];
+		ChangeMainImage(NewLightBox);
 	}
 }
+
+function keychangeLightBox(){
+	var Thumbnails = document.getElementsByClassName('LightboxThumb');
+	for (var i = 0; i < Thumbnails.length; i++) {
+		var ClassList = Thumbnails[i].classList;
+		for (var j = 0; j < ClassList.length; j++) {
+			if(ClassList[j] === 'active'){
+				return i;
+			}
+		};
+	};
+}
+
+function ChangeMainImage(element){
+	document.getElementById('Lightbox-Image').src = element.src;
+	document.getElementById('Lightbox-Image').alt = element.alt;
+	document.getElementById('Lightbox-Image-Tag').innerText = element.alt;
+}
+
+
+
+
+
+
 
 
 
