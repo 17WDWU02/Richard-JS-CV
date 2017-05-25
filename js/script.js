@@ -320,7 +320,7 @@ function PasswordValid(){
 	var ConfirmPasswordError = document.getElementById("confirm-password-errors");
 	PasswordError.innerHTML = "";
 	ConfirmPasswordError.innerHTML = "";
-
+	//required
 	if(password.length == 0){
 		PasswordError.innerHTML = "Password is required";
 		valid = false;
@@ -334,33 +334,30 @@ function PasswordValid(){
 		valid = false;
 		return;
 	}
-	var Uppercase = /(?=(.*[A-Z])).{1,}/;
-	if(!password.match(Uppercase)){
-		PasswordError.innerText = "Must include 1 Uppercase";
+	var UpperCase = /(?=(.*[A-Z])).{1,}/;
+	if(!password.match(UpperCase)){
+		PasswordError.innerText = "Password must include at least 1 uppercase character";
 		valid = false;
 		return;
 	}
-	var Numbers = /(?=(.*[0-9]){3}).{3,}/;
-	var Special = /(?=(.*[!#$%^&+=_-])).{1,}/;
-
-	if(password !== ConfirmPassword){
+	var Numbers = /(?=(.*[0-9]){3,}).{3,}/;
+	if(!password.match(Numbers)){
+		PasswordError.innerText = "Password must include at least 3 Numbers";
 		valid = false;
+		return;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	var Special = /(?=(.*[!#$%^&+=])).{1,}/;
+	if(!password.match(Special)){
+		PasswordError.innerText = "Password must include at least 1 Special Character";
+		valid = false;
+		return;
+	}	
+	//Check for match
+	if(password !== ConfirmPassword){
+		ConfirmPasswordError.innerHTML = "Passwords do not match";
+		valid = false;
+		return;
+	}
 }
 
 
@@ -373,8 +370,45 @@ function PasswordValid(){
 
 
 
-
-
+	if(password.length == 0){
+		PasswordError.innerHTML = "Password is required";
+		valid = false;
+		return;		
+	}
+//required
+ else if(password.length < 5){
+		PasswordError.innerText = "Password must be more than 5 characters";
+		valid = false;
+		return;
+	} else if(password.length > 20){
+		PasswordError.innerText = "Password must be less than 20 characters";
+		valid = false;
+		return;
+	}
+	var UpperCase = /(?=(.*[A-Z])).{1,}/;
+	if(!password.match(UpperCase)){
+		PasswordError.innerText = "Password must include at least 1 uppercase character";
+		valid = false;
+		return;
+	}
+	var Numbers = /(?=(.*[0-9]){3,}).{3,}/;
+	if(!password.match(Numbers)){
+		PasswordError.innerText = "Password must include at least 3 Numbers";
+		valid = false;
+		return;
+	}
+	var Special = /(?=(.*[!#$%^&+=])).{1,}/;
+	if(!password.match(Special)){
+		PasswordError.innerText = "Password must include at least 1 Special Character";
+		valid = false;
+		return;
+	}	
+	//Check for match
+	if(password !== ConfirmPassword){
+		ConfirmPasswordError.innerHTML = "Passwords do not match";
+		valid = false;
+		return;
+	}
 
 
 
