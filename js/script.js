@@ -253,6 +253,128 @@ function ChangeMainImage(element){
 
 
 
+var valid = true;
+function mySubmitForm(){
+	event.preventDefault();
+	firstNameValid();
+	lastNameValid();
+	emailValid();
+	PasswordValid();
+	if(valid === true){
+		document.getElementById('contactForm').submit();
+	}
+}
+
+function firstNameValid(){
+	var firstName = document.getElementById("firstName").value;
+	var firstNameError = document.getElementById("firstname-errors");
+	firstNameError.innerText = "";
+	if(firstName.length == 0){
+		firstNameError.innerText = "First Name is required";
+		valid = false;
+		return;
+	} else if(firstName.length > 10){
+		firstNameError.innerText = "First Name must be less than 10 characters";
+		valid = false;
+		return;
+	}
+}
+
+function lastNameValid(){
+	var lastName = document.getElementById("lastName").value;
+	var lastNameError = document.getElementById("lastname-errors");
+	lastNameError.innerText = ""
+	if(lastName.length == 0){
+		lastNameError.innerText = "Last Name is required";
+		valid = false;
+		return;
+	} else if(lastName.length > 10){
+		lastNameError.innerText = "Last Name must be less than 10 characters";
+		valid = false;
+		return;
+	}
+}
+
+function emailValid(){
+	var email = document.getElementById('email').value;
+	var emailError = document.getElementById('email-errors');
+	emailError.innerText = "";
+	if(email.length == 0){
+		emailError.innerText = "email is required";
+		valid = false;
+		return;
+	}
+	var pattern = /[a-z0-9._-]+@[a-z0-9.-_]+\.[a-z]{2,4}/ig;
+	if(!email.match(pattern)){
+		emailError.innerText = "Invalid Email Address";
+		valid = false;
+		return;
+	}
+
+}
+
+function PasswordValid(){
+	var password = document.getElementById("password").value;
+	var ConfirmPassword = document.getElementById("confirm-password").value;
+	var PasswordError = document.getElementById("password-errors");
+	var ConfirmPasswordError = document.getElementById("confirm-password-errors");
+	PasswordError.innerHTML = "";
+	ConfirmPasswordError.innerHTML = "";
+
+	if(password.length == 0){
+		PasswordError.innerHTML = "Password is required";
+		valid = false;
+		return;		
+	} else if(password.length < 5){
+		PasswordError.innerText = "Password must be more than 5 characters";
+		valid = false;
+		return;
+	} else if(password.length > 20){
+		PasswordError.innerText = "Password must be less than 20 characters";
+		valid = false;
+		return;
+	}
+	var Uppercase = /(?=(.*[A-Z])).{1,}/;
+	if(!password.match(Uppercase)){
+		PasswordError.innerText = "Must include 1 Uppercase";
+		valid = false;
+		return;
+	}
+	var Numbers = /(?=(.*[0-9]){3}).{3,}/;
+	var Special = /(?=(.*[!#$%^&+=_-])).{1,}/;
+
+	if(password !== ConfirmPassword){
+		valid = false;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
